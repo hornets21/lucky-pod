@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuckyPod888</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/x-icon" href="assets/สราเบส.ico">
+</head>
+
+<body>
+  <div class="app-container">
+    <header>
+      <div class="logo">
+        <span class="icon">✨</span>
+        <h1>Lucky Pod <span class="badge">100</span></h1>
+      </div>
+      <div class="stats">
+        <div class="stat-item">
+          <span class="label">Scratched</span>
+          <span id="scratchedCount" class="value">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="label">Prizes Found</span>
+          <span id="prizesFound" class="value">0/10</span>
+        </div>
+      </div>
+      <div class="controls">
+        <button id="managePrizesBtn" class="secondary-btn" onclick="openManagePrizesModal()">รางวัล</button>
+        <button id="winnersBtn" class="secondary-btn" onclick="openWinnersModal()">ผู้โชคดี</button>
+        <button id="resetBtn" class="secondary-btn">ล้างกระดาน</button>
+      </div>
+    </header>
+
+    <main class="board-wrapper">
+      <div id="luckyBoard" class="board-grid">
+        <!-- 100 cells will be injected here -->
+      </div>
+    </main>
+
+    <div id="prizeModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>🎉 Congratulations!</h3>
+        <p>You found a prize:</p>
+        <h2 id="revealedPrize">GOLDEN TICKET</h2>
+        <input type="text" id="winnerNameInput" placeholder="Enter winner's name..." class="winner-input">
+        <button id="claimPrizeBtn" onclick="claimPrize()">Claim Prize</button>
+      </div>
+    </div>
+
+    <div id="winnersModal" class="modal hidden">
+      <div class="modal-content winners-modal">
+        <h3>🏆 ผู้ได้รางวัล</h3>
+        <div id="winnersList" class="winners-list">
+          <!-- Winners will be injected here -->
+        </div>
+        <button onclick="closeWinnersModal()" style="margin-top: 1rem;">Close</button>
+      </div>
+    </div>
+
+    <div id="managePrizesModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>🎁 เพิ่มรางวัล</h3>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.8;">Maximum 10 items. Changes apply to the next
+          generated board.</p>
+        <div id="managePrizesList" class="winners-list manage-prizes-list">
+          <!-- Prize items will be injected here -->
+        </div>
+        <div class="add-prize-container">
+          <input type="text" id="newPrizeInput" placeholder="New prize name..." class="winner-input"
+            style="margin-bottom: 0;">
+          <button id="addPrizeBtn" onclick="addNewPrize()">Add</button>
+        </div>
+        <button onclick="closeManagePrizesModal()" style="margin-top: 1rem; width: 100%;"
+          class="secondary-btn">Close</button>
+      </div>
+    </div>
+
+    <div id="dialogModal" class="modal hidden">
+      <div class="modal-content" style="max-width: 350px;">
+        <h3 id="dialogTitle">Title</h3>
+        <p id="dialogMessage" style="margin: 1.5rem 0;">Message</p>
+        <div style="display: flex; gap: 1rem; justify-content: center;">
+          <button id="dialogCancelBtn" class="secondary-btn" style="flex: 1;" hidden>Cancel</button>
+          <button id="dialogConfirmBtn" style="flex: 1;">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
