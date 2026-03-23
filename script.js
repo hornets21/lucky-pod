@@ -32,9 +32,7 @@ let currentClaimingPrizeIndex = null;
 
 // Prize pool
 let prizeList = [
-  "iPhone 15 Pro", "PlayStation 5", "Nintendo Switch", "Amazon Gift Card $100",
-  "Premium Laptop", "Mechanical Keyboard", "Wireless Earbuds", "Gaming Mouse",
-  "Smart Watch", "Golden Ticket"
+  "ประชาชนชาวปด"
 ];
 
 function loadCustomPrizes() {
@@ -70,10 +68,15 @@ function generateBoard() {
   // If prizes not yet generated for this new board
   if (Object.keys(state.prizes).length === 0) {
     const indices = Array.from({ length: TOTAL_CELLS }, (_, i) => i);
+    // Shuffle a copy of prizeList to ensure unique distribution
+    const shuffledPrizes = [...prizeList].sort(() => Math.random() - 0.5);
+
     for (let i = 0; i < PRIZE_COUNT; i++) {
       const randomIndex = Math.floor(Math.random() * indices.length);
       const cellIndex = indices.splice(randomIndex, 1)[0];
-      state.prizes[cellIndex] = prizeList[Math.floor(Math.random() * prizeList.length)];
+      // Use modulo to cycle through prizes if prizeList.length < PRIZE_COUNT
+      // This ensures each prize is used at least once before duplicates occur
+      state.prizes[cellIndex] = shuffledPrizes[i % shuffledPrizes.length] || "ประชาชนชาวปด";
     }
     saveState();
   }
@@ -299,7 +302,7 @@ function renderManagePrizes() {
     `;
     managePrizesListEl.appendChild(item);
   });
-  
+
   const addBtn = document.getElementById('addPrizeBtn');
   if (prizeList.length >= 10) {
     addBtn.disabled = true;
@@ -325,7 +328,7 @@ function addNewPrize() {
 function showDialog(title, message, isConfirm, onConfirm) {
   dialogTitle.innerText = title;
   dialogMessage.innerText = message;
-  
+
   if (isConfirm) {
     dialogCancelBtn.hidden = false;
     dialogCancelBtn.onclick = () => {
@@ -336,12 +339,12 @@ function showDialog(title, message, isConfirm, onConfirm) {
     dialogCancelBtn.hidden = true;
     dialogConfirmBtn.innerText = 'OK';
   }
-  
+
   dialogConfirmBtn.onclick = () => {
     dialogModal.classList.add('hidden');
     if (onConfirm) onConfirm();
   };
-  
+
   dialogModal.classList.remove('hidden');
 }
 
